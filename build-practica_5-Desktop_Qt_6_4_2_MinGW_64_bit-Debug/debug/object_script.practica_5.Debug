@@ -1,0 +1,13 @@
+debug/cuerpo.o
+debug/database.o
+debug/enemy.o
+debug/juego.o
+debug/main.o
+debug/mainwindow.o
+debug/moneda.o
+debug/pared.o
+debug/puntaje.o
+debug/qrc_imagenes.o
+debug/moc_cuerpo.o
+debug/moc_enemy.o
+debug/moc_mainwindow.o

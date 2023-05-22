@@ -1,0 +1,13 @@
+release/cuerpo.o
+release/database.o
+release/enemy.o
+release/juego.o
+release/main.o
+release/mainwindow.o
+release/moneda.o
+release/pared.o
+release/puntaje.o
+release/qrc_imagenes.o
+release/moc_cuerpo.o
+release/moc_enemy.o
+release/moc_mainwindow.o
