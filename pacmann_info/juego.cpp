@@ -14,7 +14,7 @@ juego::juego()
     paredes_();
     monedas_();
 
-    personaje = new cuerpo(150,35,35); // se crea bolita de pacman
+    personaje = new cuerpo(150,7,306); // se crea bolita de pacman
     personaje->select_sprite(0,0);
 
     addItem(personaje);
@@ -28,77 +28,86 @@ juego::juego()
 void juego::keyPressEvent(QKeyEvent *evento)
 {
     if(evento->key()==Qt::Key_D){
-       //Evaluacion de colision con monedas
-
-       personaje->Move_derecha();
-       for (int i = 0;i < monedas.size();i++) {
-            if(personaje->collidesWithItem(monedas.at(i))){
-              //puntaje_->incremento(); // incremento de puntaje
-
-              teletransportacion();
-              removeItem(monedas.at(i));
-              monedas.removeAt(i);
-              i--;
-             }
+        if (personaje->getPosx() >= 695 && personaje->getPosy() == 306){
+            personaje->setPosx(4);
         }
+         //Evaluacion de colision con monedas
+         if (personaje->getPosx() <= 7 && personaje->getPosx() == 306){
+             personaje->setPos(695,306);
+         }
+         personaje->Move_derecha();
+        for (int i = 0;i < monedas.size();i++) {
+            if(personaje->collidesWithItem(monedas.at(i))){
+                 //puntaje_->incremento(); // incremento de puntaje
+                 removeItem(monedas.at(i));
+                 monedas.removeAt(i);
+                 i--;
+                 }
+         }
         //Colicion con muros
         for (int i = 0;i < paredes.size();i++) {
              if(personaje->collidesWithItem(paredes.at(i))){
                 personaje->Move_izquierda();
-                }
+             }
         }
     }
-         else if(evento->key()==Qt::Key_S){
-            personaje->Move_abajo();
-            for (int i = 0;i < monedas.size();i++) {
-                 if(personaje->collidesWithItem(monedas.at(i))){
-                   // puntaje_->incremento(); // incremento de puntaje
-                     teletransportacion();
-                    removeItem(monedas.at(i));
-                    monedas.removeAt(i);
-                  }
-             }
-            //Colicion con muros
-            for (int i = 0;i < paredes.size();i++) {
-                 if(personaje->collidesWithItem(paredes.at(i))){
-                    personaje->Move_arriba();
+    else if(evento->key()==Qt::Key_S){
+        // personaje->verifificacion_(*personaje);
+         personaje->Move_abajo();
+        for (int i = 0;i < monedas.size();i++) {
+            if(personaje->collidesWithItem(monedas.at(i))){
+                 // puntaje_->incremento(); // incremento de puntaje
+                 removeItem(monedas.at(i));
+                 monedas.removeAt(i);
+                 i--;
                  }
-            }
-        }
-         else if (evento->key()==Qt::Key_W){
-             personaje->Move_arriba();
-             for (int i = 0;i < monedas.size();i++) {
-                  if(personaje->collidesWithItem(monedas.at(i))){
-                     // puntaje_->incremento(); // incremento de puntaje
-                      teletransportacion();
-                      removeItem(monedas.at(i)); // eliminar moneda de esena
-                      monedas.removeAt(i);
-                   }
-              }
-             //Colicion con muros
-             for (int i = 0;i < paredes.size();i++) {
-                  if(personaje->collidesWithItem(paredes.at(i))){
-                     personaje->Move_abajo();
-                  }
-             }
          }
-         else if (evento->key()==Qt::Key_A){
-            personaje->Move_izquierda();
-            for (int i = 0;i < monedas.size();i++) {
-                 if(personaje->collidesWithItem(monedas.at(i))){
-                    // puntaje_->incremento(); // incremento de puntaje
-                     teletransportacion();
-                     removeItem(monedas.at(i)); // eliminar moneda de esena
-                     monedas.removeAt(i);
-                  }
+        //Colicion con muros
+        for (int i = 0;i < paredes.size();i++) {
+             if(personaje->collidesWithItem(paredes.at(i))){
+                 personaje->Move_arriba();
              }
-            //Colicion con muros
-            for (int i = 0;i < paredes.size();i++) {
-                 if(personaje->collidesWithItem(paredes.at(i))){
-                    personaje->Move_derecha();
+        }
+    }
+    else if (evento->key()==Qt::Key_W){
+       // personaje->verifificacion_(*personaje);
+        personaje->Move_arriba();
+         for (int i = 0;i < monedas.size();i++) {
+              if(personaje->collidesWithItem(monedas.at(i))){
+                 // puntaje_->incremento(); // incremento de puntaje
+                 removeItem(monedas.at(i)); // eliminar moneda de esena
+                 monedas.removeAt(i);
+                 i--;
                  }
+        }
+        //Colicion con muros
+        for (int i = 0;i < paredes.size();i++) {
+             if(personaje->collidesWithItem(paredes.at(i))){
+                personaje->Move_abajo();
+                }
             }
         }
+    else if (evento->key()==Qt::Key_A){
+
+        if (personaje->getPosx() <= 4 && personaje->getPosy() == 306){
+            personaje->setPosx(695);
+        }
+        personaje->Move_izquierda();
+        for (int i = 0;i < monedas.size();i++) {
+             if(personaje->collidesWithItem(monedas.at(i))){
+                // puntaje_->incremento(); // incremento de puntaje
+                 removeItem(monedas.at(i)); // eliminar moneda de esena
+                 monedas.removeAt(i);
+                 i--;
+                }
+            }
+         //Colicion con muros
+         for (int i = 0;i < paredes.size();i++) {
+              if(personaje->collidesWithItem(paredes.at(i))){
+                 personaje->Move_derecha();
+                 }
+            }
+     }
 }
 
 QList<moneda *> juego::eliminarMonedas(QList<moneda *> monedas, int pos)
@@ -122,11 +131,6 @@ void juego::crear_monedas(int x, int y, int ancho, int alto)
 {
     monedas.push_back(new moneda(x,y,ancho,alto));
     addItem(monedas.back());
-}
-
-void juego::teletransportacion()
-{
-
 }
 
 void juego::paredes_()

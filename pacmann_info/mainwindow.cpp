@@ -20,24 +20,6 @@ MainWindow::MainWindow(QWidget *parent)
     scene->setSceneRect(0,0,ui->graphicsView->width()-2,ui->graphicsView->height()-2);
     ui->graphicsView->setScene(scene);
     setWindowTitle("Pac Man");
-
-//    enemigo = new enemy(10,120,180); // se crea fantasma
-//    addItem(enemigo);
-
-//   paredes_();
-//   monedas_();
-
-//    personaje = new cuerpo(150,35,35); // se crea bolita de pacman
-//    personaje->select_sprite(0,0);
-
-//    addItem(personaje);
-
-//    timer = new QTimer();
-//    connect(timer,SIGNAL(timeout()),this,SLOT(moveEnemy()));
-//    timer->start(5);
-
-    //game->juego_();
-
 }
 
 MainWindow::~MainWindow()
